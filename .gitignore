@@ -1,0 +1,7 @@
+# Editors
+.vs/*
+.atom/*
+.idea/*
+.vscode/*
+!*tasks.json
+!*launch.json
