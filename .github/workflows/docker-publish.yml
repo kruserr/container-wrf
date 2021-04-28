@@ -15,7 +15,7 @@ on:
 
 env:
   IMAGE_NAME: container-wrf
-  IMAGE_ID: docker.pkg.github.com/${{ github.repository }}/$IMAGE_NAME
+  IMAGE_LATEST: docker.pkg.github.com/kruserr/container-wrf/container-wrf:latest
 
 jobs:
   # Push image to GitHub Packages.
@@ -34,7 +34,7 @@ jobs:
       - name: Build image
         run: |
           docker build . \
-            --cache-from "$IMAGE_ID:latest"
+            --cache-from $IMAGE_LATEST
             --file Dockerfile \
             --tag $IMAGE_NAME
 
@@ -43,6 +43,11 @@ jobs:
 
       - name: Push image
         run: |
+          IMAGE_ID=docker.pkg.github.com/${{ github.repository }}/$IMAGE_NAME
+
+          # Change all uppercase to lowercase
+          IMAGE_ID=$(echo $IMAGE_ID | tr '[A-Z]' '[a-z]')
+
           # Strip git ref prefix from version
           VERSION=$(echo "${{ github.ref }}" | sed -e 's,.*/\(.*\),\1,')
 
