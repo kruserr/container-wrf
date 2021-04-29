@@ -62,7 +62,7 @@ COPY --chown=user:user default-mca-params.conf .openmpi/mca-params.conf
 
 COPY --chown=user:user wrf-4.0.2.tar.gz \
   wps-4.0.2.tar.gz \
-  nclncarg-6.3.0.tar.gz .
+  nclncarg-6.3.0.tar.gz ./
 RUN tar -xf wrf-4.0.2.tar.gz -C WRF --strip-components 1 && \
   tar -xf wps-4.0.2.tar.gz -C WPS --strip-components 1 && \
   tar -xf nclncarg-6.3.0.tar.gz -C /usr/local && \
@@ -84,4 +84,4 @@ RUN ./compile > /dev/null 2>&1
 WORKDIR ../
 COPY --chown=user:user get-geog-complete.sh \
   get-tutorial.sh \
-  README.md .
+  README.md ./
