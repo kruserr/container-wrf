@@ -49,6 +49,9 @@ RUN yum install -y epel-release && \
     openmpi-devel.x86_64 && \
       yum clean all
 
+RUN mkdir -p /glade/work/wrfhelp && \
+  chown -R user:user /glade
+
 USER user
 
 RUN mkdir WRF \
@@ -71,7 +74,8 @@ RUN tar -xf wrf-4.0.2.tar.gz -C WRF --strip-components 1 && \
       nclncarg-6.3.0.tar.gz
 
 RUN ln -sf /usr/include/openmpi-x86_64/ netcdf_links/include && \
-  ln -sf /usr/lib64/openmpi/lib netcdf_links/lib
+  ln -sf /usr/lib64/openmpi/lib netcdf_links/lib && \
+  ln -s /opt/WPS_GEOG /glade/work/wrfhelp
 
 WORKDIR WRF
 COPY --chown=user:user configure.wrf .
